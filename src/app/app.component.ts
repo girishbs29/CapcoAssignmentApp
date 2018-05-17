@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { ICustomer } from './customers/ICustomer';
-import { ICustomerService } from './customers/ICustomerService';
-import { ICustomerServiceToken } from './config.token';
+import { ICustomer } from './Services/Customers/ICustomer';
+import { ICustomerService } from './Services/Customers/ICustomerService';
+import { ICustomerServiceToken, ILoggerToken } from './config.token';
+import { ILogger } from './Utils/Logger/ILogger';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +10,14 @@ import { ICustomerServiceToken } from './config.token';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(@Inject(ICustomerServiceToken) private readonly customerService: ICustomerService) {
+  constructor(@Inject(ICustomerServiceToken) private readonly customerService: ICustomerService,
+              @Inject(ILoggerToken) private logger: ILogger) {
   }
 
   ngOnInit(): void {
-    this.rowData = this.customerService.getCustomers();
+    this.customerService.getCustomers()
+                        .subscribe(customers => this.rowData = customers, 
+                                    error => this.logger.Log(error));
   }
 
   title: string = 'Capco Customer List';
