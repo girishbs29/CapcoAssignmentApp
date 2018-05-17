@@ -1,9 +1,9 @@
 import { ICustomerService } from "./ICustomerService";
 import { ICustomer } from "./ICustomer";
-import { Injectable } from "@angular/core";
+import { Injectable, NgModule } from "@angular/core";
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: NgModule
 })
 export class CustomerService implements ICustomerService {
     getCustomers(): ICustomer[] {

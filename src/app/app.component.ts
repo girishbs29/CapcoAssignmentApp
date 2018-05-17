@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ICustomer } from './customers/ICustomer';
 import { ICustomerService } from './customers/ICustomerService';
-import { CustomerService } from './customers/CustomerService';
 import { ICustomerServiceToken } from './config.token';
 
 @Component({
@@ -10,13 +9,11 @@ import { ICustomerServiceToken } from './config.token';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  private _customerService: ICustomerService;
-  constructor(@Inject(ICustomerServiceToken) customerService: ICustomerService) {
-    this._customerService = customerService;
+  constructor(@Inject(ICustomerServiceToken) private readonly customerService: ICustomerService) {
   }
 
   ngOnInit(): void {
-    this.rowData = this._customerService.getCustomers();
+    this.rowData = this.customerService.getCustomers();
   }
 
   title: string = 'Capco Customer List';
