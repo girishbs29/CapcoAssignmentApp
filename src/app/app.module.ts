@@ -1,11 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AgGridModule } from 'ag-grid-angular';
-import { ICustomerServiceToken } from './config.token';
+import { ICustomerServiceToken, ILoggerToken } from './config.token';
 import { CustomerService } from './customers/CustomerService';
 import { Token } from '@angular/compiler';
+import { Logger } from './Logger/Logger';
 
 @NgModule({
   declarations: [
@@ -13,9 +14,13 @@ import { Token } from '@angular/compiler';
   ],
   imports: [
     BrowserModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+
   ],
-  providers: [{provide: ICustomerServiceToken, useClass: CustomerService}],
+  providers: [
+    {provide: ICustomerServiceToken, useClass: CustomerService},
+    {provide: ILoggerToken, useClass: Logger}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

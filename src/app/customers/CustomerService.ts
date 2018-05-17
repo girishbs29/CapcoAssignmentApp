@@ -1,11 +1,16 @@
 import { ICustomerService } from "./ICustomerService";
 import { ICustomer } from "./ICustomer";
-import { Injectable, NgModule } from "@angular/core";
+import { Injectable, NgModule, Inject } from "@angular/core";
+import { ILoggerToken } from "../config.token";
+import { ILogger } from "ag-grid/dist/lib/iLogger";
 
 @Injectable({
     providedIn: NgModule
 })
 export class CustomerService implements ICustomerService {
+    constructor(@Inject(ILoggerToken) private readonly logger: ILogger) {
+    }
+
     getCustomers(): ICustomer[] {
         return [{
             "name": "Nell D. Michael",
