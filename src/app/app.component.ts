@@ -3,25 +3,17 @@ import { ICustomer } from './Services/Customers/ICustomer';
 import { ICustomerService } from './Services/Customers/ICustomerService';
 import { ICustomerServiceToken, ILoggerToken } from './config.token';
 import { ILogger } from './Utils/Logger/ILogger';
+import { ButtonComponent } from './CellRenderers/button/button.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  constructor(@Inject(ICustomerServiceToken) private readonly customerService: ICustomerService,
-              @Inject(ILoggerToken) private logger: ILogger) {
-  }
-
-  ngOnInit(): void {
-    this.customerService.getCustomers()
-                        .subscribe(customers => this.rowData = customers, 
-                                    error => this.logger.Log(error));
-  }
-
-  title: string = 'Capco Customer List';
+  title = 'Capco Customer List';
   columnDefs = [
+      {headerName: '', field: 'id', cellRenderer: "buttonComponent", colId: "params"},
       {headerName: 'Name', field: 'name' },
       {headerName: 'Phone', field: 'phone' },
       {headerName: 'Email', field: 'email'},
@@ -42,5 +34,20 @@ export class AppComponent implements OnInit {
       {headerName: 'Url', field: 'url'}
     ];
 
-  rowData: ICustomer[] = [];
+    frameworkComponents = {
+      buttonComponent: ButtonComponent
+    };
+
+    rowData: any;//ICustomer[] = [];
+
+    constructor(@Inject(ICustomerServiceToken) private readonly customerService: ICustomerService,
+              @Inject(ILoggerToken) private readonly logger: ILogger) {
+  }
+
+  ngOnInit(): void {
+    // this.customerService.getCustomers()
+    //                     .subscribe(customers => this.rowData = customers,
+    //                                 error => this.logger.Log(error));
+    this.rowData = this.customerService.getCustomers();
+  }
 }

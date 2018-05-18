@@ -1,10 +1,12 @@
-import { Injectable, NgModule, Inject } from "@angular/core";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Observable } from "rxjs/internal/Observable";
-import { ICustomerService } from "./ICustomerService";
-import { ICustomer } from "./ICustomer";
-import { ILoggerToken } from "../../config.token";
+import { Injectable, NgModule, Inject } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs/internal/Observable';
+import { throwError } from 'rxjs';
+import { ICustomerService } from './ICustomerService';
+import { ICustomer } from './ICustomer';
+import { ILoggerToken } from '../../config.token';
 import { ILogger } from '../../Utils/Logger/ILogger';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
     providedIn: NgModule
@@ -14,15 +16,20 @@ export class CustomerService implements ICustomerService {
 
     constructor(@Inject(ILoggerToken) private readonly logger: ILogger,
                 private _httpClient: HttpClient) {
-        logger.Log(document.location.toString());
     }
 
     getCustomers(): Observable<ICustomer[]> {
-        return this._httpClient.get<ICustomer[]>(this._customerAPIUrl);
+        return this._httpClient.get<ICustomer[]>(this._customerAPIUrl)
+                                .pipe(catchError(this.handleError));
+    }
+
+    updateCustomer(id: number): string {
+        this.logger.Log('Calling service to post for id=' + id.toString());
+        return 'updated';
     }
 
     private handleError(error: HttpErrorResponse) {
         this.logger.Log(error.message);
-        return Observable.throw(error);
+        return throwError(error);
     }
 }

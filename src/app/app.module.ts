@@ -7,14 +7,16 @@ import { ICustomerServiceToken, ILoggerToken } from './config.token';
 import { CustomerService } from './Services/Customers//CustomerService';
 import { Token } from '@angular/compiler';
 import { Logger } from './Utils/Logger/Logger';
+import { ButtonComponent } from './CellRenderers/button/button.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ButtonComponent
   ],
   imports: [
     BrowserModule,
-    AgGridModule.withComponents([]),
+    AgGridModule.withComponents([ButtonComponent]),
     HttpClientModule
   ],
   providers: [

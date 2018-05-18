@@ -7,14 +7,12 @@
 <ag-grid-angular 
     style="width: 90%; height: 500px;" 
     class="ag-theme-balham"
-    [rowData]="rowData" 
-    [enableSorting]="true"
-    [enableFilter]="true"
+    [rowData]="rowData | async" 
     [columnDefs]="columnDefs"
     rowSelection="multiple"
     [enableColResize]="true"
     [pagination]="true"
     [paginationPageSize]="10"
+    [frameworkComponents]="frameworkComponents"
     >
 </ag-grid-angular>
-

@@ -1,4 +1,4 @@
-import { InjectionToken } from "@angular/core";
+import { InjectionToken } from '@angular/core';
 import { ICustomerService } from './Services/Customers/ICustomerService';
 import { ILogger } from './Utils/Logger/ILogger';
 
