@@ -1,18 +1,18 @@
-import {Component, Inject} from "@angular/core";
-import {ICellRendererAngularComp} from "ag-grid-angular";
-import { ICellRendererParams, IAfterGuiAttachedParams } from "ag-grid";
-import { ICustomerServiceToken } from "../../config.token";
-import { ICustomerService } from "../../Services/Customers/ICustomerService";
+import {Component, Inject} from '@angular/core';
+import {ICellRendererAngularComp} from 'ag-grid-angular';
+import { ICellRendererParams, IAfterGuiAttachedParams } from 'ag-grid';
+import { ICustomerServiceToken } from '../../config.token';
+import { ICustomerService } from '../../Services/Customers/ICustomerService';
 
 @Component({
-  selector: 'child-cell',
+  selector: 'app-child-cell',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.css']
 })
 export class ButtonComponent implements ICellRendererAngularComp {
   private _params: any;
 
-  constructor(@Inject(ICustomerServiceToken) private readonly customerService: ICustomerService){
+  constructor(@Inject(ICustomerServiceToken) private readonly customerService: ICustomerService) {
   }
 
   refresh(params: any): boolean {

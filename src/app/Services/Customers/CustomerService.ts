@@ -15,17 +15,16 @@ export class CustomerService implements ICustomerService {
     private _customerAPIUrl = './app/DataStore/sample_data.json';
 
     constructor(@Inject(ILoggerToken) private readonly logger: ILogger,
-                private _httpClient: HttpClient) {
+                private readonly _httpClient: HttpClient) {
     }
 
-    getCustomers(): Observable<ICustomer[]> {
+    getCustomers(pageNo: number, pageSize: number): Observable<ICustomer[]> {
         return this._httpClient.get<ICustomer[]>(this._customerAPIUrl)
                                 .pipe(catchError(this.handleError));
     }
 
-    updateCustomer(id: number): string {
-        this.logger.Log('Calling service to post for id=' + id.toString());
-        return 'updated';
+    updateCustomer(id: number): void {
+        this.logger.Log('Call a real service to post for id=' + id.toString());
     }
 
     private handleError(error: HttpErrorResponse) {

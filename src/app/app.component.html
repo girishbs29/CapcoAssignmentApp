@@ -4,6 +4,15 @@
     Welcome to {{ title }}!
   </h1>
 </div>
+<div>
+  Page Size:
+  <select (change)="onPageSizeChanged()" id="page-size">
+      <option value="10" selected="">10</option>
+      <option value="100">100</option>
+      <option value="500">500</option>
+      <option value="1000">1000</option>
+  </select>
+</div>
 <ag-grid-angular 
     style="width: 90%; height: 500px;" 
     class="ag-theme-balham"
@@ -12,7 +21,9 @@
     rowSelection="multiple"
     [enableColResize]="true"
     [pagination]="true"
-    [paginationPageSize]="10"
+    [paginationPageSize]="paginationPageSize"
+    [paginationNumberFormatter]="paginationNumberFormatter"
     [frameworkComponents]="frameworkComponents"
+    (gridReady)="onGridReady($event)"
     >
 </ag-grid-angular>
